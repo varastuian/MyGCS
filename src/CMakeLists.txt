@@ -55,6 +55,7 @@ add_subdirectory(Vehicle)
 add_subdirectory(VehicleSetup)
 add_subdirectory(VideoManager)
 add_subdirectory(Viewer3D)
+add_subdirectory(Vahid)
 
 #######################################################
 #               Linking Libraries
@@ -66,6 +67,7 @@ target_link_libraries(QGC
         Qt6::QuickWidgets
         Qt6::Core5Compat
         Qt6::Bluetooth
+        Vahid
         API
         ADSB
         AirLink

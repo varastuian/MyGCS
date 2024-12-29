@@ -118,6 +118,7 @@ void SimulatedCameraControl::setCameraModePhoto()
 bool SimulatedCameraControl::takePhoto()
 {
     qCDebug(CameraControlLog) << "takePhoto()";
+    _vehicle->triggerSimpleCamera();
 
     if (!capturesPhotos()) {
         qCWarning(CameraControlLog) << "takePhoto: Camera does not handle image capture";
@@ -128,7 +129,7 @@ bool SimulatedCameraControl::takePhoto()
         return false;
     }
     if (cameraMode() != CAM_MODE_PHOTO && cameraMode() != CAM_MODE_SURVEY) {
-        qCWarning(CameraControlLog) << "takePhoto: Camera not in correct mode:" << cameraModeToStr(cameraMode());
+        // qCWarning(CameraControlLog) << "takePhoto: Camera not in correct mode:" << cameraModeToStr(cameraMode());
         return false;
     }
 

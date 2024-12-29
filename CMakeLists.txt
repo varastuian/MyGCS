@@ -184,7 +184,7 @@ find_package(Qt6
         MultimediaQuickPrivate
         Quick3D
         SerialPort
-        WaylandClient
+        # WaylandClient
     HINTS
         ${QT_LIBRARY_HINTS}
 )

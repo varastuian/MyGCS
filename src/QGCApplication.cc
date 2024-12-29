@@ -303,10 +303,14 @@ QGCApplication::~QGCApplication()
 {
 
 }
+#include "ImageFootprintCalculator.h"
 
 void QGCApplication::init()
 {
     // Register our Qml objects
+    //vahid
+    qmlRegisterType<ImageFootprintCalculator>("Vahid.photogrammetry", 1, 0, "ImageFootprintCalculator");
+
 
     qmlRegisterType<Fact>               ("QGroundControl.FactSystem", 1, 0, "Fact");
     qmlRegisterType<FactMetaData>       ("QGroundControl.FactSystem", 1, 0, "FactMetaData");

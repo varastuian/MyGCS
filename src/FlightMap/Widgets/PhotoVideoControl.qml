@@ -35,6 +35,8 @@ Rectangle {
     property var    _cameraManager:             _activeVehicle.cameraManager
     property var    _camera:                    _cameraManager.currentCameraInstance
     property bool   _cameraInPhotoMode:         _camera.cameraMode === MavlinkCameraControl.CAM_MODE_PHOTO
+    // property bool   _cameraInPhotoMode:        true
+
     property bool   _cameraInVideoMode:         !_cameraInPhotoMode
     property bool   _videoCaptureIdle:          _camera.videoCaptureStatus === MavlinkCameraControl.VIDEO_CAPTURE_STATUS_STOPPED
     property bool   _photoCaptureSingleIdle:    _camera.photoCaptureStatus === MavlinkCameraControl.PHOTO_CAPTURE_IDLE

@@ -59,6 +59,7 @@ Item {
         anchors.fill:   parent
         useSmallFont:   _root.pipState.state !== _root.pipState.fullState
         visible:        QGroundControl.videoManager.isStreamSource
+        Component.onCompleted: console.log("sag ", videoStreaming)
     }
     //-- UVC Video (USB Camera or Video Device)
     Loader {
@@ -118,7 +119,6 @@ Item {
 
         onPressed:(mouse) => {
             onScreenGimbalController.pressControl()
-
             _track_rec_x = mouse.x
             _track_rec_y = mouse.y
 

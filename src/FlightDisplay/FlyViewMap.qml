@@ -22,7 +22,7 @@ import QGroundControl.FlightMap
 import QGroundControl.Palette
 import QGroundControl.ScreenTools
 import QGroundControl.Vehicle
-
+import Vahid.photogrammetry
 FlightMap {
     id:                         _root
     allowGCSLocationCenter:     true
@@ -247,6 +247,72 @@ FlightMap {
         id: obstacleDistance
         showText: !pipMode
     }
+    ImageFootprintCalculator {
+            id: imageFootprintCalculator
+        }
+    //vahid footprint
+
+    function updateFootprint() {
+        const location = _activeVehicle.coordinate;
+        const altitude = _activeVehicle.altitudeRelative.rawValue;
+        const pitch = _activeVehicle.pitch.rawValue;
+        const roll = _activeVehicle.roll.rawValue;
+        const yaw = _activeVehicle.heading.rawValue;
+
+        const horizontalFov = 60.0;
+        const verticalFov = 45.0;
+
+        var footprint = imageFootprintCalculator.calculateImageFootprint(
+            location,altitude, pitch, roll, yaw, horizontalFov, verticalFov
+        );
+        footprintPolyline.path = footprint.map(coord => ({
+            latitude: coord.latitude,
+            longitude: coord.longitude
+        }));
+
+
+
+        // var footprint2 = imageFootprintCalculator.calculateImageFootprint2(
+        //     location,altitude, pitch, roll, yaw, horizontalFov, verticalFov
+        // );
+
+        // footprintPolyline2.path = footprint2.map(coord => ({
+        //     latitude: coord.latitude,
+        //     longitude: coord.longitude
+        // }));
+    }
+
+
+    Timer {
+            id: myTimer
+            interval: 500
+            repeat: true
+            running: true
+
+            // onTriggered: {
+            //     updateFootprint();
+            // }
+        }
+
+
+    MapPolyline {
+        id:         footprintPolyline
+        line.width: 3
+        line.color: "orange"
+        z:          15
+        visible:    !pipMode
+
+    }
+
+    // MapPolyline {
+    //     id:         footprintPolyline2
+    //     line.width: 3
+    //     line.color: "orange"
+    //     z:          16
+
+    // }
+
+
 
     // Add trajectory lines to the map
     MapPolyline {

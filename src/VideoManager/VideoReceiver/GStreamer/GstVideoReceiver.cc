@@ -107,6 +107,7 @@ GstVideoReceiver::start(const QString& uri, unsigned timeout, int buffer)
 
     GstElement* decoderQueue = nullptr;
     GstElement* recorderQueue = nullptr;
+    // qDebug() << "GStreamer Plugin Path:" << qgetenv("GST_PLUGIN_PATH");
 
     do {
         if((_tee = gst_element_factory_make("tee", nullptr)) == nullptr)  {
@@ -338,7 +339,7 @@ GstVideoReceiver::stop(void)
 
         // FIXME: check if branch is connected and remove all elements from branch
         if (_fileSink != nullptr) {
-           _shutdownRecordingBranch();
+            _shutdownRecordingBranch();
         }
 
         if (_videoSink != nullptr) {
@@ -1538,28 +1539,28 @@ GstVideoReceiver::_videoSinkProbe(GstPad* pad, GstPadProbeInfo* info, gpointer u
         if (pThis->_resetVideoSink) {
             pThis->_resetVideoSink = false;
 
-// FIXME: AV: this makes MPEG2-TS playing smooth but breaks RTSP
-//            gst_pad_send_event(pad, gst_event_new_flush_start());
-//            gst_pad_send_event(pad, gst_event_new_flush_stop(TRUE));
+            // FIXME: AV: this makes MPEG2-TS playing smooth but breaks RTSP
+            //            gst_pad_send_event(pad, gst_event_new_flush_start());
+            //            gst_pad_send_event(pad, gst_event_new_flush_stop(TRUE));
 
-//            GstBuffer* buf;
+            //            GstBuffer* buf;
 
-//            if ((buf = gst_pad_probe_info_get_buffer(info)) != nullptr) {
-//                GstSegment* seg;
+            //            if ((buf = gst_pad_probe_info_get_buffer(info)) != nullptr) {
+            //                GstSegment* seg;
 
-//                if ((seg = gst_segment_new()) != nullptr) {
-//                    gst_segment_init(seg, GST_FORMAT_TIME);
+            //                if ((seg = gst_segment_new()) != nullptr) {
+            //                    gst_segment_init(seg, GST_FORMAT_TIME);
 
-//                    seg->start = buf->pts;
+            //                    seg->start = buf->pts;
 
-//                    gst_pad_send_event(pad, gst_event_new_segment(seg));
+            //                    gst_pad_send_event(pad, gst_event_new_segment(seg));
 
-//                    gst_segment_free(seg);
-//                    seg = nullptr;
-//                }
+            //                    gst_segment_free(seg);
+            //                    seg = nullptr;
+            //                }
 
-//                gst_pad_set_offset(pad, -static_cast<gint64>(buf->pts));
-//            }
+            //                gst_pad_set_offset(pad, -static_cast<gint64>(buf->pts));
+            //            }
         }
 
         pThis->_noteVideoSinkFrame();
